@@ -30,7 +30,7 @@ func Server(roots ...eval.Root) ([]codegen.File, error) {
 		}
 		// TBD:
 		// case *rpc.RootExpr:
-		// tranws = append(tranws, rpccodegen.ServerFiles(r))
+		// tran = append(tran, rpccodegen.ServerFiles(r))
 	}
 	if len(des) == 0 {
 		return nil, fmt.Errorf("could not find goa design in DSL roots, vendoring issue?")

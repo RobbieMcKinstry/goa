@@ -164,7 +164,7 @@ func (a *AttributeExpr) Validate(ctx string, parent eval.Expression) *eval.Valid
 // Walk traverses the data structure recursively and calls the given function
 // once on each attribute starting with a.
 func (a *AttributeExpr) Walk(walker func(*AttributeExpr) error) error {
-	return walk(a, walker, make(map[string]bool))
+	return walk(a, walker, make(map[string]struct{}))
 }
 
 // Merge merges other's attributes into a and returns a overriding its

@@ -145,17 +145,17 @@ func (c *DSLContext) Record(err *Error) {
 
 // sortDependencies sorts the depencies of the given root in the given slice.
 func sortDependencies(roots []Root, root Root, depFunc func(Root) []Root) []Root {
-	seen := make(map[string]bool, len(roots))
+	seen := make(map[string]struct{}, len(roots))
 	var sorted []Root
 	sortDependenciesR(root, seen, &sorted, depFunc)
 	return sorted
 }
 
 // sortDependenciesR sorts the depencies of the given root in the given slice.
-func sortDependenciesR(root Root, seen map[string]bool, sorted *[]Root, depFunc func(Root) []Root) {
+func sortDependenciesR(root Root, seen map[string]struct{}, sorted *[]Root, depFunc func(Root) []Root) {
 	for _, dep := range depFunc(root) {
-		if !seen[dep.EvalName()] {
-			seen[root.EvalName()] = true
+		if _, ok := seen[dep.EvalName()]; !ok {
+			seen[root.EvalName()] = struct{}{}
 			sortDependenciesR(dep, seen, sorted, depFunc)
 		}
 	}

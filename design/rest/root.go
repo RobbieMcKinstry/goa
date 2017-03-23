@@ -119,10 +119,10 @@ func (r *RootExpr) Schemes() []string {
 	if r.Design == nil {
 		return nil
 	}
-	schemes := make(map[string]bool)
+	schemes := make(map[string]struct{})
 	for _, s := range r.Design.API.Servers {
 		if u, err := url.Parse(s.URL); err != nil {
-			schemes[u.Scheme] = true
+			schemes[u.Scheme] = struct{}{}
 		}
 	}
 	if len(schemes) == 0 {

@@ -41,10 +41,10 @@ type (
 
 // Schemes returns the resource endpoint HTTP schemes.
 func (r *ResourceExpr) Schemes() []string {
-	schemes := make(map[string]bool)
+	schemes := make(map[string]struct{})
 	for _, s := range r.Servers {
 		if u, err := url.Parse(s.URL); err != nil {
-			schemes[u.Scheme] = true
+			schemes[u.Scheme] = struct{}{}
 		}
 	}
 	if len(schemes) == 0 {

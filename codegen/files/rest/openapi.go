@@ -36,7 +36,7 @@ func (w *openAPI) Sections(_ string) []*codegen.Section {
 }
 
 // OutputPath is the relative path to the output file.
-func (w *openAPI) OutputPath(_ map[string]bool) string {
+func (w *openAPI) OutputPath(_ map[string]struct{}) string {
 	return "openapi/swagger.json"
 }
 

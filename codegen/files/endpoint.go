@@ -86,7 +86,7 @@ func (e *endpointFile) Sections(genPkg string) []*codegen.Section {
 
 // OutputPath is the path to the generated endpoint file relative to the output
 // directory.
-func (e *endpointFile) OutputPath(reserved map[string]bool) string {
+func (e *endpointFile) OutputPath(reserved map[string]struct{}) string {
 	svc := codegen.SnakeCase(e.service.Name)
 	return UniquePath(filepath.Join("endpoints", svc+"%d.go"), reserved)
 }

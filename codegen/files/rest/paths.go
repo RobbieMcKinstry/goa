@@ -86,7 +86,7 @@ func (e *pathFile) Sections(_ string) []*codegen.Section {
 	return e.sections
 }
 
-func (e *pathFile) OutputPath(reserved map[string]bool) string {
+func (e *pathFile) OutputPath(reserved map[string]struct{}) string {
 	return files.UniquePath("gen/transport/http/paths%d.go", reserved)
 }
 

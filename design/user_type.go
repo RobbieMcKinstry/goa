@@ -79,12 +79,12 @@ func (u *UserTypeExpr) Example(r *Random) interface{} {
 // Walk traverses the data structure recursively and calls the given function
 // once on each attribute starting with the user type attribute.
 func (u *UserTypeExpr) Walk(walker func(*AttributeExpr) error) error {
-	return walk(u.AttributeExpr, walker, map[string]bool{u.TypeName: true})
+	return walk(u.AttributeExpr, walker, map[string]struct{}{u.TypeName: struct{}{}})
 }
 
 // Recursive implementation of the Walk methods. Takes care of avoiding infinite
 // recursions by keeping track of types that have already been walked.
-func walk(at *AttributeExpr, walker func(*AttributeExpr) error, seen map[string]bool) error {
+func walk(at *AttributeExpr, walker func(*AttributeExpr) error, seen map[string]struct{}) error {
 	if err := walker(at); err != nil {
 		return err
 	}
@@ -92,7 +92,7 @@ func walk(at *AttributeExpr, walker func(*AttributeExpr) error, seen map[string]
 		if _, ok := seen[ut.TypeName]; ok {
 			return nil
 		}
-		seen[ut.TypeName] = true
+		seen[ut.TypeName] = struct{}{}
 		return walk(ut.AttributeExpr, walker, seen)
 	}
 	switch actual := at.Type.(type) {

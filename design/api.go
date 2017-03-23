@@ -84,10 +84,10 @@ type (
 
 // Schemes returns the list of HTTP methods used by all the API servers.
 func (a *APIExpr) Schemes() []string {
-	schemes := make(map[string]bool)
+	schemes := make(map[string]struct{})
 	for _, s := range a.Servers {
 		if u, err := url.Parse(s.URL); err != nil {
-			schemes[u.Scheme] = true
+			schemes[u.Scheme] = struct{}{}
 		}
 	}
 	if len(schemes) == 0 {
